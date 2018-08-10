@@ -1,21 +1,22 @@
 # java-cpp-activemq
-Proof of Concept for a project including an application in C++ being called from a Java web application housed in Tomcat over Linux.
+Proof of Concept for a project including a Java web application housed in Tomcat interfacing through ActiveMQ with an application written in C++.
 
 Environment:
 
 Windows 7 <br/>
 Java Runtime Enviroment 1.8.181 <br/>
-Tomcat 9.0.10 + ActiveMQ 5 <br/>
+Tomcat 9.0.10 + ActiveMQ 5.15.4 <br/>
 
-Java web application deployed in Tomcat <br/>
+Java web application built with JMS running on Tomcat <br/>
 C++ application linked with ActiveMQ-CPP (the Apache CMS API library implementation) running on Windows <br/>
 
 Step-by-step
 
-1. Download and install JRE
+1. Download and install JRE.
 2. Download Tomcat and unzip it into a specific folder
 3. Configure Tomcat to not pick up Jetty WebSocket ServerContainerInitializer class (See References section).
-3. Download ActiveMQ and unzip it into 
+4. Download ActiveMQ and unzip it into 
+5. Manually integrate ActiveMQ with Tomcat.
 
 References:
 
@@ -25,20 +26,20 @@ Java Runtime Environment, or JRE™.
 
 2. http://activemq.apache.org/download.html
 
+Apache ActiveMQ Latest Releases.
 
-2. http://activemq.apache.org/tomcat.html
+3. http://activemq.apache.org/tomcat.html
 
 Configuration issues for Tomcat 7 and later.
 Tomcat needs to be configured to ignore Jetty SCI annotations so that the Jetty WebSocket ServerContainerInitializer class is not inadvertently picked up by Tomcat. For more information on this problem see AMQ-6154 and https://wiki.apache.org/tomcat/HowTo/FasterStartUp and consult the Tomcat documentation for the version you are using to properly exclude the Jetty jar files from being scanned by Tomcat.
 
-2.a. https://issues.apache.org/jira/browse/AMQ-6154
+3.a. https://issues.apache.org/jira/browse/AMQ-6154
 
 BUG Resolved: ActiveMQ with websocket on Tomcat fails with NullPointerException at org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer
 
-2.b. https://wiki.apache.org/tomcat/HowTo/FasterStartUp
+3.b. https://wiki.apache.org/tomcat/HowTo/FasterStartUp
 
 This section provides several recommendations on how to make your web application and Apache Tomcat as a whole to start up faster.
-
 
 4. http://activemq.apache.org/cross-language-clients.html
 
