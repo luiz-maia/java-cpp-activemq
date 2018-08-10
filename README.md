@@ -5,7 +5,8 @@ Environment:
 
 Windows 7 <br/>
 Java Runtime Enviroment 1.8.181 <br/>
-Tomcat 9.0.10 + ActiveMQ 5.15.4 <br/>
+Tomcat 9.0.10 <br/>
+ActiveMQ 5.15.4 <br/>
 
 Java web application built with JMS running on Tomcat <br/>
 C++ application linked with ActiveMQ-CPP (the Apache CMS API library implementation) running on Windows <br/>
@@ -22,11 +23,11 @@ Step-by-step
 Note: This does allow for Topic, Queue, and ConnectionFactory injection but does not support transactional sending and delivery. You should go to Tomcat documentation and read <b>JNDI Resources HOW-TO</b>, especially part: <b>Configure Tomcat's Resource Factory</b>. ActiveMQ has ready JNDI resource factory for all its administered objects: ConnectionFactory and destinations.
 You must provide it as a parameter factory for your resources:
 
-Configure Tomcat to use the ActiveMQ resource factory in the <Context> element for the web application.
-
 <Context>
   <Resource name="jms/ConnectionFactory" auth="Container" type="org.apache.activemq.ActiveMQConnectionFactory" description="JMS Connection Factory" factory="org.apache.activemq.jndi.JNDIReferenceFactory" brokerURL="vm://localhost" brokerName="LocalActiveMQBroker"/>
 </Context>
+
+Tomcat provides a number of specific options for JNDI resources that cannot be specified in web.xml. These include closeMethod that enables faster cleaning-up of JNDI resources when a web application stops and singleton that controls whether or not a new instance of the resource is created for every JNDI lookup. To use these configuration options the resource must be specified in a web application's <Context> element or in the <GlobalNamingResources> element of $CATALINA_BASE/conf/server.xml.
 
 References:
 
