@@ -7,6 +7,8 @@ Windows 7 <br/>
 Java Runtime Enviroment 1.8.181 <br/>
 Tomcat 9.0.10 <br/>
 ActiveMQ 5.15.4 <br/>
+ActiveMQ-CPP 3.9.4 based on the CMS 3.2 <br/>
+
 
 Java web application built with JMS running on Tomcat <br/>
 C++ application linked with ActiveMQ-CPP (the Apache CMS API library implementation) running on Windows <br/>
@@ -14,7 +16,13 @@ C++ application linked with ActiveMQ-CPP (the Apache CMS API library implementat
 Step-by-step
 
 1. Download and install JRE.
+
+Check References 1 section.
+
 2. Download Tomcat and unzip it into a specific folder.
+
+Check References 2 section.
+
 3. ****** Configure Tomcat to not pick up Jetty WebSocket ServerContainerInitializer class (See References section).
 4. ****** Download ActiveMQ and unzip it into a specific folder.
 5. ****** Run an ActiveMQ Broker.
@@ -29,13 +37,23 @@ You must provide it as a parameter factory for your resources:
 
 Tomcat provides a number of specific options for JNDI resources that cannot be specified in web.xml. These include closeMethod that enables faster cleaning-up of JNDI resources when a web application stops and singleton that controls whether or not a new instance of the resource is created for every JNDI lookup. To use these configuration options the resource must be specified in a web application's <Context> element or in the <GlobalNamingResources> element of $CATALINA_BASE/conf/server.xml.
 
+6. Ddownload the ActiveMQ-CPP API Source and Build it.
+
+On Windows, use Visual Studio Community to open the solution file <b>\vs2010-build\activemq-cpp.sln</b> and compile all the solution projects. Before you do that it will be necessary to handle the solution dependencies, Apache Portable Runtime (APR) and CPPUnit tools, install those and make sure the project points to them correctly. 
+
+6. Implement and build the CMS C++ code fragment using 
+
 References:
 
 1. http://www.oracle.com/technetwork/pt/java/javase/downloads/jre8-downloads-2133155.html
 
 Java Runtime Environment, or JRE™.
 
-2. http://activemq.apache.org/download.html
+2. https://tomcat.apache.org/index.html
+
+Apache Tomcat Latest Releases.
+
+3. http://activemq.apache.org/download.html
 
 Apache ActiveMQ Latest Releases.
 
@@ -81,6 +99,18 @@ Apache ActiveMQ is a message broker written in Java with JMS, REST and WebSocket
 CMS (stands for C++ Messaging Service) is a JMS-like API for C++ for interfacing with Message Brokers such as Apache ActiveMQ. CMS helps to make your C++ client code much neater and easier to follow. To get a better feel for CMS try the API Reference. ActiveMQ-CPP is a client only library, a message broker such as Apache ActiveMQ is still needed for your clients to communicate.
 
 Our implementation of CMS is called ActiveMQ-CPP, which has an architecture that allows for pluggable transports and wire formats. Currently we support the OpenWire and Stomp protocols, both over TCP and SSL, we also now support a Failover Transport for more reliable client operation. In addition to CMS, ActiveMQ-CPP also provides a robust set of classes that support platform independent constructs such as threading, I/O, sockets, etc. You may find many of these utilities very useful, such as a Java like Thread class or the "synchronized" macro that let's you use a Java-like synchronization on any object that implements the activemq::concurrent::Synchronizable interface. ActiveMQ-CPP is released under the Apache 2.0 License.
+
+5.a. http://activemq.apache.org/cms/download.html
+
+Apache ActiveMQ-CPP Latest Releases.
+
+5.b. http://activemq.apache.org/cms/building.html
+
+ApacheMQ-CPP Building Steps.
+
+5.c. http://apr.apache.org/
+
+
 
 http://activemq.apache.org/run-broker.html
 
