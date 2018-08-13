@@ -8,7 +8,7 @@ Java Runtime Enviroment 1.8.181 <br/>
 Tomcat 9.0.10 <br/>
 ActiveMQ 5.15.4 <br/>
 ActiveMQ-CPP 3.9.4 based on the CMS 3.2 <br/>
-
+APR 1.6.3 <br/>
 
 Java web application built with JMS running on Tomcat <br/>
 C++ application linked with ActiveMQ-CPP (the Apache CMS API library implementation) running on Windows <br/>
@@ -17,11 +17,11 @@ Step-by-step
 
 1. Download and install JRE.
 
-Check References 1 section.
+Check item 1 of References.
 
 2. Download Tomcat and unzip it into a specific folder.
 
-Check References 2 section.
+Check item 2 of References.
 
 3. ****** Configure Tomcat to not pick up Jetty WebSocket ServerContainerInitializer class (See References section).
 4. ****** Download ActiveMQ and unzip it into a specific folder.
@@ -39,7 +39,21 @@ Tomcat provides a number of specific options for JNDI resources that cannot be s
 
 6. Ddownload the ActiveMQ-CPP API Source and Build it.
 
-On Windows, use Visual Studio Community to open the solution file <b>\vs2010-build\activemq-cpp.sln</b> and compile all the solution projects. Before you do that it will be necessary to handle the solution dependencies, Apache Portable Runtime (APR) and CPPUnit tools, install those and make sure the project points to them correctly. 
+On Windows, use Visual Studio Community to open the solution file <b>\vs2010-build\activemq-cpp.sln</b> and compile all the solution projects. Before you can do that however it will be necessary to handle the solution dependencies, i.e. Apache Portable Runtime (APR) and CPPUnit tools, install those and make sure the project points to them correctly.
+
+6.a. Download CppUnit Source Code and Build it.
+
+Check item 5 of References.
+
+CppUnit can be compiled using Visual Studio IDE. The <b>\cppunit-1.12.1\src\CppUnitLibraries.sln</b> solution file is provided. This workspace exposes the entire list of working .dsp projects that are required for the complete CppUnit binary release. It includes dependencies between the projects to assure that they are built in the appropriate order but it is necessary to migrate the whole projects to the new Visual Studio version. It will be done automatically by the IDE and then you will need to retarteg the solution to the updated Windows SDK verstion. Change the SDK version in the project property pages or by right-clicking the solution and selecting "Retarget solution". After that build the solution as a whole.
+
+6.b. Download the APR Source Code and Build it.
+
+Check item 5 of References.
+
+APR can be compiled using Visual C++'s graphical environment. To simplify this process, a complete Visual Studio workspace, apr-util/aprutil.dsw, is provided. This workspace exposes the entire list of working .dsp projects that are required for the complete APR binary release. It includes dependencies between the projects to assure that they are built in the appropriate order but it is necessary to migrate the whole projects to the new Visual Studio version. It will be done automatically by the IDE and then you will need to retarteg the solution to the updated Windows SDK verstion. Change the SDK version in the project property pages or by right-clicking the solution and selecting "Retarget solution". After that build the solution as a whole.
+
+On Windows, use Visual Studio Community to open the solution file <b>\apr-1.6.3\apr.sln</b> and compile all the solution projects. Before you can do that however it will be necessary to handle the solution dependencies, i.e. Apache Portable Runtime (APR) and CPPUnit tools, install those and make sure the project points to them correctly.
 
 6. Implement and build the CMS C++ code fragment using 
 
@@ -108,7 +122,17 @@ Apache ActiveMQ-CPP Latest Releases.
 
 ApacheMQ-CPP Building Steps.
 
-5.c. http://apr.apache.org/
+5.c. http://apr.apache.org/ 
+
+The mission of the Apache Portable Runtime (APR) project is to create and maintain software libraries that provide a predictable and consistent interface to underlying platform-specific implementations.
+
+5.c.1. https://sourceforge.net/projects/cppunit/
+
+CppUnit - C++ port of JUnit. This is the C++ port of the famous JUnit framework for unit testing.
+
+5.c.2. http://apr.apache.org/compiling_win32.html
+
+APR can be built on Windows using a cmake-based build system or with Visual Studio project files maintained by APR developers. The cmake-based build system directly supports more versions of Visual Studio but currently has considerable functional limitations.
 
 
 
